@@ -1,0 +1,36 @@
+service:
+  name: aws-lambda-nodejs-crud-api
+
+frameworkVersion: ">=1.45.1 <2.0.0"
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+
+functions:
+  list:
+    handler: src/list.main
+    events:
+      - http:
+          path: /
+          method: GET
+          cors: true
+    package:
+      include:
+        - src/list.js
+  
+package:
+  individually: true
+  excludeDevDependencies: true
+  exclude:
+    - src/**
+    - .git/**
+    - .serverless/**
+    - .idea/**
+    - .vs/**
+    - node_modules/**
+    - babel.config.js
+    - yarn.lock
+    - package.json
+    - README.md
+    - LICENSE

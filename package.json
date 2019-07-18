@@ -1,0 +1,32 @@
+{
+  "name": "aws-lambda-nodejs-crud-api",
+  "version": "1.0.0",
+  "description": "CRUD API application for AWS Lambda (NodeJS)",
+  "scripts": {
+    "test": "jest",
+    "deploy": "sls deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chyuck/aws-lambda-nodejs-crud-api.git"
+  },
+  "keywords": [
+    "api",
+    "aws",
+    "lambda",
+    "nodejs",
+    "crud"
+  ],
+  "author": "Andrey Sergeev",
+  "license": "MIT",
+  "homepage": "https://github.com/chyuck/aws-lambda-nodejs-crud-api#readme",
+  "devDependencies": {
+    "@babel/core": "^7.5.4",
+    "@babel/preset-env": "^7.5.4",
+    "babel-jest": "^24.8.0",
+    "jest": "^24.8.0"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.495.0"
+  }
+}
