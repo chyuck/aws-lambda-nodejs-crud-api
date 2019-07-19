@@ -1,17 +1,20 @@
 const dynamodb = require("aws-sdk/clients/dynamodb");
 const client = new dynamodb.DocumentClient();
 
-module.exports.main = async () => {
+module.exports.main = async (event) => {
     const params = {
-        TableName: process.env.DYNAMO_DB_TABLE
-    }; 
+        TableName: process.env.DYNAMO_DB_TABLE,
+        Key: {
+            id: event.pathParameters.id
+        }
+    };
 
     try {
-        const result = await client.scan(params).promise();
+        await client.delete(params).promise();
         
         return {
             statusCode: 200,
-            body: JSON.stringify(result.Items)       
+            body: JSON.stringify({})       
         };
     } catch (error) {
         return {

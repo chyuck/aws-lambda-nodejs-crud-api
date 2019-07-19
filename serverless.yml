@@ -6,18 +6,79 @@ frameworkVersion: ">=1.45.1 <2.0.0"
 provider:
   name: aws
   runtime: nodejs10.x
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+  environment:
+    DYNAMO_DB_TABLE: ${self:service.name}-${self:provider.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.DYNAMO_DB_TABLE}
 
 functions:
   list:
     handler: src/list.main
     events:
       - http:
-          path: /
+          path: orders
           method: GET
           cors: true
     package:
       include:
         - src/list.js
+
+  create:
+    handler: src/create.main
+    events:
+      - http:
+          path: orders
+          method: POST
+          cors: true
+    package:
+      include:
+        - src/create.js
+        - src/validator.js
+        - node_modules/uuid/**
+
+  get:
+    handler: src/get.main
+    events:
+      - http:
+          path: orders/{id}
+          method: GET
+          cors: true
+    package:
+      include:
+        - src/get.js
+
+  update:
+    handler: src/update.main
+    events:
+      - http:
+          path: orders/{id}
+          method: PUT
+          cors: true
+    package:
+      include:
+        - src/update.js
+        - src/validator.js
+
+  delete:
+    handler: src/delete.main
+    events:
+      - http:
+          path: orders/{id}
+          method: DELETE
+          cors: true
+    package:
+      include:
+        - src/delete.js
   
 package:
   individually: true
@@ -34,3 +95,19 @@ package:
     - package.json
     - README.md
     - LICENSE
+
+  resources:
+    Resources:
+      OrdersDynamoDBTable:
+        Type: AWS::DynamoDB::Table
+        Properties: 
+          TableName: ${self:provider.environment.DYNAMO_DB_TABLE}
+          AttributeDefinitions:
+            - AttributeName: id
+              AttributeType: S
+          KeySchema:
+            - AttributeName: id
+              KeyType: HASH
+          ProvisionedThroughput:
+            ReadCapacityUnits: 1
+            WriteCapacityUnits: 1
