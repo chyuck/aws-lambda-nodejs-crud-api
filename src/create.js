@@ -13,7 +13,7 @@ module.exports.main = async (event) => {
         };
     }
 
-    const timestamp = new Date().getTime();
+    const timestamp = new Date().toISOString();
 
     const params = {
         TableName: process.env.DYNAMO_DB_TABLE,

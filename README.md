@@ -1,4 +1,12 @@
 ## CRUD API application for AWS Lambda (NodeJS)
+Application provides APIs for manipulation of orders with the following attributes:
+- ID
+- Product
+- Quantity
+- Active Flag
+- Create Time
+- Change Time
+
 
 ## Setup ##
 1. Install [NodeJS](https://nodejs.org/)
@@ -26,7 +34,79 @@ yarn deploy
 ```
 
 
-## Run Tests ##
+## Testing ##
+
+### Create Order ###
 ```bash
-yarn test
+curl -X POST https://XXX.execute-api.us-east-1.amazonaws.com/dev/orders --data '{ "product":"Apple", "quantity":3 }'
+```
+Result:
+```json
+{  
+   "id":"a5b97d20-aa3b-11e9-8f1e-ffa5d9f32bc9",
+   "product":"Apple",
+   "quantity":3,
+   "active":true,
+   "created":"2019-07-19T15:41:17.169Z",
+   "updated":"2019-07-19T15:41:17.169Z"
+}
+```
+
+### Get Order ###
+```bash
+curl https://XXX.execute-api.us-east-1.amazonaws.com/dev/orders/a5b97d20-aa3b-11e9-8f1e-ffa5d9f32bc9
+```
+Result:
+```json
+{  
+   "id":"a5b97d20-aa3b-11e9-8f1e-ffa5d9f32bc9",
+   "product":"Apple",
+   "quantity":3,
+   "active":true,
+   "created":"2019-07-19T15:41:17.169Z",
+   "updated":"2019-07-19T15:41:17.169Z"
+}
+```
+
+### Update Order ###
+```bash
+curl -X PUT https://XXX.execute-api.us-east-1.amazonaws.com/dev/orders/a5b97d20-aa3b-11e9-8f1e-ffa5d9f32bc9 --data '{ "product":"Orange", "quantity":1 }'
+```
+Result:
+```json
+{  
+   "id":"a5b97d20-aa3b-11e9-8f1e-ffa5d9f32bc9",
+   "product":"Orange",
+   "quantity":1,
+   "active":true,
+   "created":"2019-07-19T15:41:17.169Z",
+   "updated":"2019-07-19T15:45:13.817Z"
+}
+```
+
+### List Orders ###
+```bash
+curl https://XXX.execute-api.us-east-1.amazonaws.com/dev/orders
+```
+Result:
+```json
+[  
+   {  
+      "id":"a5b97d20-aa3b-11e9-8f1e-ffa5d9f32bc9",
+      "product":"Orange",
+      "quantity":1,
+      "active":true,
+      "created":"2019-07-19T15:41:17.169Z",
+      "updated":"2019-07-19T15:45:13.817Z"
+   }
+]
+```
+
+### Delete Order ###
+```bash
+curl -X DELETE https://XXX.execute-api.us-east-1.amazonaws.com/dev/orders/a5b97d20-aa3b-11e9-8f1e-ffa5d9f32bc9
+```
+Result:
+```json
+{}
 ```
