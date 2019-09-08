@@ -1,15 +1,16 @@
 const dynamodb = require("aws-sdk/clients/dynamodb");
 const client = new dynamodb.DocumentClient();
 const validator = require("./validator");
+const cors = require("./cors");
 
 module.exports.main = async (event) => {
     const order = JSON.parse(event.body);
     const errors = validator.validate(order);
     if (errors.length > 0) {
-        return {
+        return cors.addHeaders({
             statusCode: 400,
             body: JSON.stringify(errors)
-        };
+        });
     }
 
     const timestamp = new Date().toISOString();
@@ -31,14 +32,14 @@ module.exports.main = async (event) => {
     try {
         const result = await client.update(params).promise();
         
-        return {
+        return cors.addHeaders({
             statusCode: 200,
             body: JSON.stringify(result.Attributes)       
-        };
+        });
     } catch (error) {
-        return {
+        return cors.addHeaders({
             statusCode: 500,
             body: JSON.stringify(error)
-        };
+        });
     }
 };

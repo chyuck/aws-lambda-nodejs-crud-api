@@ -1,5 +1,6 @@
 const dynamodb = require("aws-sdk/clients/dynamodb");
 const client = new dynamodb.DocumentClient();
+const cors = require("./cors");
 
 module.exports.main = async (event) => {
     const params = {
@@ -12,14 +13,14 @@ module.exports.main = async (event) => {
     try {
         await client.delete(params).promise();
         
-        return {
+        return cors.addHeaders({
             statusCode: 200,
             body: JSON.stringify({})       
-        };
+        });
     } catch (error) {
-        return {
+        return cors.addHeaders({
             statusCode: 500,
             body: JSON.stringify(error)
-        };
+        });
     }
 };
