@@ -22,7 +22,7 @@ module.exports.main = async (event) => {
             id: uuid(),
             product: order.product,
             quantity: order.quantity,
-            active: true,
+            active: order.active,
             created: timestamp,
             updated: timestamp
         }

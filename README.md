@@ -38,7 +38,7 @@ yarn deploy
 
 ### Create Order ###
 ```bash
-curl -X POST https://XXX.execute-api.us-east-1.amazonaws.com/dev/orders --data '{ "product":"Apple", "quantity":3 }'
+curl -X POST https://XXX.execute-api.us-east-1.amazonaws.com/dev/orders --data '{ "product":"Apple", "quantity":3, "active":true }'
 ```
 Result:
 ```json
@@ -70,7 +70,7 @@ Result:
 
 ### Update Order ###
 ```bash
-curl -X PUT https://XXX.execute-api.us-east-1.amazonaws.com/dev/orders/a5b97d20-aa3b-11e9-8f1e-ffa5d9f32bc9 --data '{ "product":"Orange", "quantity":1 }'
+curl -X PUT https://XXX.execute-api.us-east-1.amazonaws.com/dev/orders/a5b97d20-aa3b-11e9-8f1e-ffa5d9f32bc9 --data '{ "product":"Orange", "quantity":1, "active":false }'
 ```
 Result:
 ```json
@@ -78,7 +78,7 @@ Result:
    "id":"a5b97d20-aa3b-11e9-8f1e-ffa5d9f32bc9",
    "product":"Orange",
    "quantity":1,
-   "active":true,
+   "active":false,
    "created":"2019-07-19T15:41:17.169Z",
    "updated":"2019-07-19T15:45:13.817Z"
 }
@@ -95,7 +95,7 @@ Result:
       "id":"a5b97d20-aa3b-11e9-8f1e-ffa5d9f32bc9",
       "product":"Orange",
       "quantity":1,
-      "active":true,
+      "active":false,
       "created":"2019-07-19T15:41:17.169Z",
       "updated":"2019-07-19T15:45:13.817Z"
    }

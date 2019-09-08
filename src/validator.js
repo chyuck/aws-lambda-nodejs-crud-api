@@ -13,5 +13,9 @@ module.exports.validate = function(order) {
         }
     }
 
+    if (typeof order.active !== "boolean") {
+        errors.push("'active' must be provided and valid.");
+    }
+
     return errors;
 };

@@ -23,9 +23,10 @@ module.exports.main = async (event) => {
         ExpressionAttributeValues: {
             ":product": order.product,
             ":quantity": order.quantity,
+            ":active": order.active,
             ":updated": timestamp
         },
-        UpdateExpression: "SET product = :product, quantity = :quantity, updated = :updated",
+        UpdateExpression: "SET product = :product, quantity = :quantity, active = :active, updated = :updated",
         ReturnValues: "ALL_NEW"
     };
 
