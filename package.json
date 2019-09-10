@@ -5,7 +5,7 @@
   "scripts": {
     "test": "jest",
     "deploy": "sls deploy",
-    "lint": "eslint ." 
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "@babel/preset-env": "^7.5.4",
     "babel-jest": "^24.8.0",
     "eslint": "^6.0.1",
+    "eslint-utils": "^1.4.2",
     "jest": "^24.8.0"
   },
   "dependencies": {
